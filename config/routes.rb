@@ -1,5 +1,9 @@
 DinnerDash::Application.routes.draw do
   
+  resources :orders
+
+  resources :users
+
   resources :categories
   resources :items
   resources :menu, only: [:index]

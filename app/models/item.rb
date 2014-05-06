@@ -10,4 +10,5 @@ class Item < ActiveRecord::Base
   # -------------------------------------- Validations
 
   belongs_to :category
+  has_and_belongs_to_many :orders
 end
