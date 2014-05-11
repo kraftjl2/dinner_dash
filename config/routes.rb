@@ -1,4 +1,4 @@
-DinnerDash::Application.routes.draw do
+ DinnerDash::Application.routes.draw do
   
   resources :categories
   resources :items
