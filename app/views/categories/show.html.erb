@@ -3,15 +3,14 @@
 <p><%= @category.description %></p>
 
 <% if @category.items.any? %>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Items</h3>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Items</h3>
+    </div>
+    <ul class="list-group">
+      <%= render @category.items %>
+    </ul>
   </div>
-  <ul class="list-group">
-    <%= render @category.items %>
-  </ul>
-</div>
 <% end %>
 
 <%= link_to 'Edit', edit_category_path(@category) %> |
