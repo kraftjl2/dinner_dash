@@ -1,6 +1,6 @@
 class Order < ActiveRecord::Base
   
-  attr_accessible :pickup_at, :user, :items
+  attr_accessible :pickup_at, :user, :items, :order_status
   
   # -------------------------------------- Associations
   
@@ -23,6 +23,7 @@ class Order < ActiveRecord::Base
   
   # -------------------------------------- Instance Methods
   
+  
   def minimum_order_size
     errors.add(:items, 'must contain at least one') if items.none?
   end
@@ -31,6 +32,14 @@ class Order < ActiveRecord::Base
   
   def self.order_statuses
     ['ordered', 'paid', 'cancelled', 'completed']
-  end  
+  end
+  
+  def self.order_statuses_for_select
+    order_statuses.collect { |o| [o.humanize, o] }.unshift(['Show All', ''])
+  end
+  
+  # -------------------------------------- Scopes
+  
+  scope :with_status, -> (status) { where(order_status: status) }
   
 end

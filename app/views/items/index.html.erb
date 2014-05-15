@@ -5,6 +5,7 @@
     <tr>
       <th>Title</th>
       <th>Price</th>
+      <th>Active?</th>
        <th>Photos</th>
       <th>Actions</th>    
     </tr>
@@ -15,6 +16,7 @@
       <tr>
         <td><%= link_to item.title, item_path(item) %></td>
         <td><%= number_to_currency item.price %></td>
+        <td><%= item.active? ? "Yes" : "No" %></td>
         <td><%= image_tag item.photo, height: '100', class:'thumbnail' %></td>
         <td><%= link_to 'Edit', edit_item_path(item) %> | <%= link_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

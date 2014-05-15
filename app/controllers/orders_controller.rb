@@ -2,15 +2,24 @@ class OrdersController < ApplicationController
   
   include ActionView::Helpers::DateHelper
   
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :authorized_for_admin?, only: [:edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :remove_item]
+  before_action :authorized_for_admin?, only: [:edit, :update, :destroy, :remove_item]
   before_action :authorized?, only: [:new, :create, :index, :show]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = is_admin? ? Order.all : current_user.orders
+    if is_admin?
+      if !params[:order_status].blank?
+        @orders = Order.with_status(params[:order_status])
+      else
+        @orders = Order.all
+      end      
+    else
+      @orders = current_user.orders
+    end
   end
+  
 
   # GET /orders/1
   # GET /orders/1.json
@@ -61,6 +70,44 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def remove_item
+    item = Item.find(params[:item_id])
+    @order.items.destroy(item) if item
+    redirect_to order_path(@order), alert: 'Item successfully removed.'
+  end
+  
+  def set_next_status
+    order =Order.find(params[:id])
+    index = Order.order_statuses.index(order[:order_status])
+   if(index!=3)
+      index=index+1
+    end
+    order[:order_status]= Order.order_statuses[index]
+    order.save
+    redirect_to orders_path, alert: 'Order was updated.'
+  end
+  
+  def cancel
+    order =Order.find(params[:id])
+    order[:order_status]= Order.order_statuses[2]
+    order.save
+    redirect_to orders_path, alert: 'Order was updated.'
+  end
+  
+  def paid
+    order =Order.find(params[:id])
+    order[:order_status]= Order.order_statuses[1]
+    order.save
+    redirect_to orders_path, alert: 'Order was updated.'
+  end
+  
+  def completed
+    order =Order.find(params[:id])
+    order[:order_status]= Order.order_statuses[3]
+    order.save
+    redirect_to orders_path, alert: 'Order was updated.'
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -68,7 +115,7 @@ class OrdersController < ApplicationController
       @order = Order.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params[:order].permit!
     end

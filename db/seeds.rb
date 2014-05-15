@@ -3,20 +3,20 @@
 #
 # Examples:
 #
-#   cities =  City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 ['Appetizers','Salads','Entrees','Desserts'].each do |c|
   Category.create title:c
 end
 
-Item.create title: 'Cheeseburger', photo:"http://geminiindustries.com/media/catalog/product/cache/2/thumbnail/256x/5e06319eda06f020e43594a9c230972d/k/t/kt18555-cheeseburger---graphic.png", description: 'Lorem Ipsum', category: Category.find_by_title('Entrees'), price: 10
-Item.create title: 'Cobb Salad', photo:'http://mda.bigoven.com/pics/rs/256/original-cobb-salad-brown-derby-6.jpg', description: 'Lorem Ipsum', category: Category.find_by_title('Salads'), price: 10
-Item.create title: 'Shrimp Cocktail',photo:'http://mda.bigoven.com/pics/rs/256/mexican-shrimp-cocktail-coctel-de-c.jpg',description: 'Lorem Ipsum', category: Category.find_by_title('Appetizers'), price: 5
-Item.create title: 'Cheesecake', photo:'http://4.bp.blogspot.com/_2h7XhASzl0U/Su-zekAwjLI/AAAAAAAAB9E/j3zDVAf4BpA/s320/New+York+Style+Cheesecake.jpg', description: 'Lorem Ipsum', category: Category.find_by_title('Desserts'), price: 10
+Item.create title: 'Cheeseburger', description: 'A cheeseburger is a hamburger topped with cheese. Traditionally, the slice of cheese is placed on top of the meat patty, but the burger can include many variations in structure, ingredients, and composition.', category: Category.find_by_title('Entrees'), price: 9
+Item.create title: 'Wedge Salad', description: 'One of our most famous salads, a quarter of a head of lettuce drizzled with a balsamic reduction, bacon and bleu cheese crumbled with your choice of dressing.', category: Category.find_by_title('Salads'), price: 13
+Item.create title: 'Bloomin Onion', description: 'A bloomin onion is a dish consisting of one large onion which is cut to resemble a flower, battered and deep-fried. It is served as an appetizer at some restaurants.', category: Category.find_by_title('Appetizers'), price: 8
+Item.create title: 'Cheesecake', description: 'Carrot cake is a cake which contains carrots mixed into the batter. The carrot softens in the cooking process, and the cake usually has a soft, dense texture.', category: Category.find_by_title('Desserts'), price: 7
 
-User.create name: 'Shankar Poncelet', email: 'shankx@mac.com', password: 'pass', password_confirmation: 'pass', admin: true
+User.create name: 'Jesse Kraft', email: 'kraftjl2@gmail.com', password: 'pass', password_confirmation: 'pass', admin: true
 User.create name: 'Test User', email: 'test@test.com', password: 'pass', password_confirmation: 'pass', admin: false
 
-Order.create items: [Item.find_by_title('Cheeseburger'), Item.find_by_title('Cheesecake')], user: User.find_by_email('shankx@mac.com')
+Order.create items: [Item.find_by_title('Cheeseburger'), Item.find_by_title('Cheesecake')], user: User.find_by_email('kraftjl2@gmail.com')
 Order.create items: [Item.find_by_title('Cheeseburger'), Item.find_by_title('Cheesecake')], user: User.find_by_email('test@test.com')

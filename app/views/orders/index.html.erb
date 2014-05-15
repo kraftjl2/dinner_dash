@@ -1,9 +1,19 @@
 <% if is_admin? %>
-<h1>There are currently <%=Order.count %> order(s) to be processed.</h1>
-<%else%>
-<h1>You have <%=@orders.count %> placed order(s).</h1>
-<%end%>
+<h2>There are currently <%=Order.with_status('ordered').count %> order(s) to be processed.</h2>
 
+ <div class="well">
+    <%= form_tag orders_path, method: :get, class: 'form form-inline' do %>
+      Filter Orders: 
+   <%= select_tag :order_status, options_for_select(Order.order_statuses_for_select, params[:order_status]), class: 'form-control' %>
+      <%= submit_tag 'Go!', class: 'btn' %>
+      <% Order.order_statuses.each do |s| %>
+        <%= s.humanize %>: <%=Order.with_status(s).count %> 
+      <% end %>
+    <% end %> 
+  </div>
+<%else%>
+<h2>You have <%=@orders.count %> placed order(s).</h2>
+<%end%>
 
 <table class="table table-striped">
   <thead>
@@ -13,7 +23,8 @@
       <th>Pickup Time</th>
     <% if is_admin? %>
       <th>User</th>
-      <th>Actions</th>
+  <!--    <th>Actions</th> -->
+      <th>Update Status</th>
     <% end %>
     </tr>
   </thead>
@@ -22,11 +33,18 @@
     <% @orders.each do |order| %>
       <tr>
         <td><%= link_to order.created_at, order_path(order) %></td>
-        <td><%= order.order_status %></td>
+        <td><%= order.order_status.humanize %></td>
         <td><%= order.pickup_at %></td>
         <% if is_admin? %>
         <td><%= order.user.name %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %> | <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       <!-- <td><%= link_to 'Edit', edit_order_path(order) %> | <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+          <%if(order.order_status=="ordered")%>
+          <td><%= link_to 'Cancel', cancel_path(order) %> | <%= link_to 'Paid', paid_path(order) %></td>
+          <%elsif(order.order_status=="paid")%>
+          <td><%= link_to 'Cancel', cancel_path(order) %> | <%= link_to 'Completed', completed_path(order) %></td>
+        <%else%>
+        <td>Order has been <%=order.order_status%>.<td>
+          <%end%>
         <% end %>
       </tr>
     <% end %>
