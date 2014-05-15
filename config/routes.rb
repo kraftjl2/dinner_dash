@@ -1,5 +1,6 @@
  DinnerDash::Application.routes.draw do
   
+  get "sessions/new"
   resources :sales
   resources :reviews
   resources :sessions
@@ -14,6 +15,8 @@
   get  'about', to: 'marketing#about'
   get  'faqs',  to: 'marketing#faqs'
 
+  get 'signup',  to: 'users#new' 
+   
   root 'marketing#index'
   
 end

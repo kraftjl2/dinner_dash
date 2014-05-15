@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
   
+  # -------------------------------------- Plugin
+  
+  has_secure_password
+  
   # -------------------------------------- Associations
 
   has_many :orders
