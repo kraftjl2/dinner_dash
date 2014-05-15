@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
       message = "Your order has been created. It will be ready for pickup in #{relative_time}."
       redirect_to order_path(@order), notice: message
     else
-      redirect_to cart_path, error: 'Order could not be created'
+    redirect_to cart_path, alert: "Order could not be created: #{@order.errors.full_messages.join(',')}"
     end
   end
 
@@ -85,28 +85,28 @@ class OrdersController < ApplicationController
     end
     order[:order_status]= Order.order_statuses[index]
     order.save
-    redirect_to orders_path, alert: 'Order was updated.'
+    redirect_to orders_path, notic: 'Order was updated.'
   end
   
   def cancel
     order =Order.find(params[:id])
     order[:order_status]= Order.order_statuses[2]
     order.save
-    redirect_to orders_path, alert: 'Order was updated.'
+    redirect_to orders_path, notice: 'Order was updated.'
   end
   
   def paid
     order =Order.find(params[:id])
     order[:order_status]= Order.order_statuses[1]
     order.save
-    redirect_to orders_path, alert: 'Order was updated.'
+    redirect_to orders_path, notice: 'Order was updated.'
   end
   
   def completed
     order =Order.find(params[:id])
     order[:order_status]= Order.order_statuses[3]
     order.save
-    redirect_to orders_path, alert: 'Order was updated.'
+    redirect_to orders_path, notice: 'Order was updated.'
   end
 
   private
