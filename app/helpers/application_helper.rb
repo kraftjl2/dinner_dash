@@ -1,6 +1,15 @@
 module ApplicationHelper
   
-  def active_class (url = '')
+  def totalPrice
+    @total=0
+    @order.items.each do |item|
+    @total=@total+item[:price]     
+    end
+   number_to_currency @total
+  end
+  
+  
+  def active_class(url = '')
     'active' if current_page?(url)
   end
   

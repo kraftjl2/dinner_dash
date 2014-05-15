@@ -1,16 +1,20 @@
-<h1><%= @user.name %></h1>
+<p id="notice"><%= notice %></p>
 
-<p><%= mail_to @user.email %></p>
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
 
-<p><strong>Admin? <%= @user.admin? %></p>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
 
-<% if @user.orders.any? %>
-<ul>
-  <% @user.orders.each do |order| %>
-    <%= content_tag :li, link_to(order.created_at, order_path(order)) %>
-  <% end %>
-</ul>
-<% end %>
+<p>
+  <strong>Admin:</strong>
+  <%= @user.admin %>
+</p>
+
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

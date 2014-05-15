@@ -1,16 +1,16 @@
 class User < ActiveRecord::Base
   
-  # -------------------------------------- Plugin
-  
   has_secure_password
   
-  # -------------------------------------- Associations
-
-  has_many :orders
+  attr_accessible :name, :email, :password, :password_confirmation, :admin
   
-  #--------------------------------------- Validations
+  # -------------------------------------- Validations
   
-  validates_presence_of :name, :email
   validates_uniqueness_of :email, case_sensitive: false
+  validates_presence_of :name
+  
+ # -------------------------------------- Validations
+  
+  has_many :orders
   
 end

@@ -1,20 +1,25 @@
-<h1>All Users</h1>
+<h1>Listing users</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
       <th>Email</th>
-      <th>Actions</th>
+      <th>Admin</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.name, user_path(user) %></td>
-        <td><%= mail_to user.email %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %> | <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.admin %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

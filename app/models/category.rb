@@ -1,10 +1,14 @@
 class Category < ActiveRecord::Base
   
-  # -------------------------------------- Validations
+  attr_accessible :title
+  
+   # -------------------------------------- Validations
   
   validates_presence_of :title
   
-  # -------------------------------------- Associations
-
+   # -------------------------------------- Associations
+  
   has_many :items
+
+  
 end

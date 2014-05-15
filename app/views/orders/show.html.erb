@@ -1,2 +1,29 @@
-<%= link_to 'Edit', edit_order_path(@order) %> |
+<p id="notice"></p>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Items</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+   <% @order.items.each do |item| %>     
+      <tr>
+        <td><%=link_to item.title, item_path(item)%></td>
+        <td><%=number_to_currency item.price%></td>
+         <td></td>
+      </tr>
+    <% end %>
+     <tr><td></td><td></td><td><span class="label label-info">Total Price</span><%= totalPrice%></td></tr>
+  </tbody>
+</table>
+
+<%if is_admin?%>
+<%= link_to 'Edit', edit_order_path(@order) if is_admin? %> |
+<%end%>
 <%= link_to 'Back', orders_path %>
