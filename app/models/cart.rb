@@ -15,8 +15,15 @@ class Cart
     @session[:item_ids].delete(item.id)
   end
 
-   def items
-    Item.where :id => item_ids
+  def items
+    @items ||= begin
+      returned_items = Item.where(id: item_ids)
+      collected_items = returned_items.clone.clear
+      item_ids.each do |i|
+        collected_items << returned_items.detect { |d| d.id == i.to_i }
+      end
+      collected_items
+    end
   end
 
   def item_ids
@@ -36,7 +43,7 @@ class Cart
   end
   
   def total
-    items.sum(:price)
+    items.sum(&:price)
   end
   
   def calculate_earliest_pickup_at

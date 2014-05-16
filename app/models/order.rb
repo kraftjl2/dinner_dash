@@ -11,8 +11,8 @@ class Order < ActiveRecord::Base
   
   validates_presence_of :user_id
   validate :minimum_order_size
-  validate :earliest_pickup_at
-  validate :open_for_business
+  validate :earliest_pickup_at, on: :create
+  validate :open_for_business, on: :create
   
   # -------------------------------------- Callbacks
   
@@ -43,6 +43,10 @@ class Order < ActiveRecord::Base
       errors.add(:pickup_at, 'is while the kitchen is closed, please select a time between 9am and 5pm')
     end
   end
+  
+    def total
+    items.sum(&:price)
+  end
  
   
   # -------------------------------------- Class Methods
@@ -59,7 +63,7 @@ class Order < ActiveRecord::Base
     time = Time.zone.now
     # Each item in the store has a preparation time, defaulting to 12 minutes. Items can be edited to take longer.
     # The kitchen can prepare only one item at a time.
-    time += items.sum(:prep_time).minutes
+    time += items.sum(&:prep_time).minutes
     # If an order has more than six items, add 10 minutes for every additional six items.
     time += ((items.count / 6) * 10).minutes
     # Each already "paid" order in the system which is not "complete" delays the production start of this new order by 4 minutes.

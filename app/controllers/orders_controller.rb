@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
       message = "Your order has been created. It will be ready for pickup in #{relative_time}."
       redirect_to order_path(@order), notice: message
     else
-    redirect_to cart_path, alert: "Order could not be created: #{@order.errors.full_messages.join(',')}"
+      redirect_to cart_path, notice: "Order could not be created: #{@order.errors.full_messages.join(',')}"
     end
   end
 

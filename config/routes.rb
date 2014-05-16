@@ -1,5 +1,7 @@
 DinnerDash::Application.routes.draw do
 
+  resources :reviews
+
   get 'about', to: 'marketing#about'
   get 'faq', to: 'marketing#faq'
   get 'signup', to: 'users#new'
@@ -10,7 +12,9 @@ DinnerDash::Application.routes.draw do
   resources :orders, except: [:new]
   resources :users
   resources :categories
-  resources :items
+  resources :items do
+    resources :reviews
+  end
   resources :menus, only: [:index]
   
   get 'cart',                 to: 'cart#show',   as: :cart
