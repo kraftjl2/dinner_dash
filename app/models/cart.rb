@@ -1,5 +1,7 @@
 class Cart
 
+  include ItemCalculation
+  
   def initialize(session)
     @session = session
     @session[:item_ids] ||= []
@@ -44,10 +46,6 @@ class Cart
   
   def total
     items.sum(&:price)
-  end
-  
-  def calculate_earliest_pickup_at
-    @calculate_earliest_pickup_at ||= Order.calculate_earliest_pickup_at(items)
   end
 
 end
