@@ -17,7 +17,7 @@ class Cart
     @session[:item_ids].delete(item.id)
   end
 
-  def items
+ def items
     @items ||= begin
       returned_items = Item.where(id: item_ids)
       collected_items = returned_items.clone.clear
@@ -44,8 +44,6 @@ class Cart
     @session[:item_ids] = []
   end
   
-  def total
-    items.sum(&:price)
-  end
 
+  
 end

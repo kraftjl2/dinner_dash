@@ -1,5 +1,7 @@
 DinnerDash::Application.routes.draw do
 
+  resources :sales
+
   resources :reviews
 
   get 'about', to: 'marketing#about'

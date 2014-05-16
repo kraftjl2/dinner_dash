@@ -42,9 +42,7 @@ class Order < ActiveRecord::Base
     end
   end
   
-    def total
-    items.sum(&:price)
-  end
+
  
   
   # -------------------------------------- Class Methods
@@ -56,6 +54,8 @@ class Order < ActiveRecord::Base
   def self.order_statuses_for_select
     order_statuses.collect { |o| [o.humanize, o] }.unshift(['Show All', ''])
   end
+
+  
 
   # -------------------------------------- Scopes
   
