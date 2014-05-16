@@ -1,5 +1,7 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
+  before_action :authorized_for_admin?, except: [:show]
+
 
   # GET /sales
   # GET /sales.json
