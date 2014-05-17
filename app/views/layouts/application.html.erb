@@ -29,8 +29,6 @@
         <%= content_tag :li, link_to('Orders', orders_path), class: active_section_class('orders') if (is_admin? || user_signed_in?)  %>
         <%= content_tag :li, link_to('Users', users_path), class: active_section_class('users') if is_admin?  %>
         <%= content_tag :li, link_to('Menu', menus_path), class: active_section_class('menus')  %>
-        <%= content_tag :li, link_to('About', about_path), class: active_class(about_path)  %>
-        <%= content_tag :li, link_to('FAQs', faq_path), class: active_class(faq_path)  %>
         <%= content_tag :li, link_to("<i class='glyphicon glyphicon-shopping-cart'></i> <span class='badge'>#{current_cart.items_count}</span>".html_safe, cart_path), class: active_class(cart_path) %>
       </ul>
           <ul class="nav navbar-nav navbar-right">

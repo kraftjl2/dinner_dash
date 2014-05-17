@@ -13,8 +13,8 @@
   <tbody>
     <% @sales.each do |sale| %>
         <tr>
-        <td><%= link_to sale.title, sale_path(sale) %></td>
-        <td><%= sale.discount %></td>
+        <td><%= link_to sale.title, edit_sale_path(sale) %></td>
+        <td><%= number_to_percentage(sale.discount, precision: 0) %></td>
         <td><%= sale.active? ? "Yes" : "No" %></td>
         <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

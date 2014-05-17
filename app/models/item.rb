@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
    include ActionView::Helpers::NumberHelper 
  
-  attr_accessible :title, :description, :price, :category, :photo, :active, :sale
+  attr_accessible :title, :description, :price, :category, :photo, :active, :sale_id
   
   # -------------------------------------- Validations
   
